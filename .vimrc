@@ -15,6 +15,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'L9'
+Plugin 'rkulla/pydiction'
 
 " Specify a directory for plugins"
 "call plug#begin('~/.vim/bundle')
@@ -94,9 +95,16 @@ map <F2> :NERDTreeToggle<CR>
 let NERDTreeChDirMode=1
 "显示书签"
 let NERDTreeShowBookmarks=1
-""设置忽略文件类型"
+"忽略文件类型"
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 "窗口大小"
 let NERDTreeWinSize=25
 
 let mapleader = ','
+
+map <F4> <leader>ci <CR>
+
+"pydiction"
+let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
+let g:pydiction_menu_height = 20
+
