@@ -16,6 +16,12 @@ Plugin 'tell-k/vim-autopep8'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'L9'
 Plugin 'rkulla/pydiction'
+Plugin 'ctrlpvim/ctrlp.vim' 
+Plugin 'dyng/ctrlsf.vim' 
+Plugin 'majutsushi/tagbar'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes' 
+Plugin 'kien/rainbow_parentheses.vim'
 
 " Specify a directory for plugins"
 "call plug#begin('~/.vim/bundle')
@@ -108,3 +114,27 @@ map <F4> <leader>ci <CR>
 let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 let g:pydiction_menu_height = 20
 
+map <F3> :TagbarToggle<CR>
+
+let g:airline_powerline_fonts=1
+
+" 是否启用顶部tabline
+let g:airline#extensions#tabline#enabled = 1
+" 顶部tabline显示方式
+let g:airline#extensions#tabline#left_sep=' '
+let g:airline#extensions#tabline#left_alt_sep='|'
+
+"let g:airline_theme="你的主题" 
+
+"rainbow parentheses
+let g:rbpt_colorpairs=[['brown','RoyalBlue3'],['Darkblue','SeaGreen3'],['darkgray','DarkOrchid3'],['darkgreen','firebrick3'],['darkcyan','RoyalBlue3'],['darkred','SeaGreen3'],['darkmagenta','DarkOrchid3'],['brown','firebrick3'],['gray','RoyalBlue3'],['black','SeaGreen3'],['darkmagenta','DarkOrchid3'],['Darkblue','firebrick3'],['darkgreen','RoyalBlue3'],['darkcyan','SeaGreen3'],['darkred','DarkOrchid3'],['red','firebrick3']]
+let g:rbpt_max = 16
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+let g:ctrlsf_debug_mode=1
+
+map f <Plug>CtrlSFPrompt
+map F <Plug>CtrlSFQuickfixPrompt
