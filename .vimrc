@@ -8,6 +8,7 @@ filetype plugin indent on
 "安装Github上的插件”
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'zxqfl/tabnine-vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Yggdroot/indentLine'
@@ -62,7 +63,7 @@ set scrolloff=5     "距离顶部和底部5行"
 set laststatus=2    "命令行为两行"
 set fenc=utf-8      "文件编码"
 set backspace=2
-set mouse=a     "启用鼠标"
+"set mouse=a     "启用鼠标"
 set selection=exclusive
 set selectmode=mouse, key
 set matchtime=5
@@ -138,3 +139,6 @@ let g:ctrlsf_debug_mode=1
 
 map f <Plug>CtrlSFPrompt
 map F <Plug>CtrlSFQuickfixPrompt
+
+"let g:ycm_server_keep_logfiles = 1
+"let g:ycm_server_log_level = 'debug'
