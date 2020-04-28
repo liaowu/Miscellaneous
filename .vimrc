@@ -52,7 +52,8 @@ set fenc=utf-8      "文件编码"
 set backspace=2
 set mouse=a     "启用鼠标"
 set selection=exclusive
-set selectmode=mouse, key
+"set selectmode=mouse, key
+set selectmode=
 set matchtime=5
 set ignorecase      "忽略大小写"
 set incsearch
