@@ -24,19 +24,6 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes' 
 Plugin 'kien/rainbow_parentheses.vim'
 
-" Specify a directory for plugins"
-"call plug#begin('~/.vim/bundle')
-"Plug 'altercation/vim-colors-solarized'
-"Plug 'Valloric/YouCompleteMe' "notwork now"
-"Plug 'Lokaltog/vim-powerline'
-"Plug 'scrooloose/nerdtree'
-"Plug 'Yggdroot/indentLine'
-"Plug 'jiangmiao/auto-pairs'
-"Plug 'tell-k/vim-autopep8'
-"Plug 'scrooloose/nerdcommenter'
-"Plug 'L9'  "notwork now"
-"call plug#end()
-
 "去掉vi的一致性"
 set nocompatible
 "显示行号"
@@ -63,7 +50,7 @@ set scrolloff=5     "距离顶部和底部5行"
 set laststatus=2    "命令行为两行"
 set fenc=utf-8      "文件编码"
 set backspace=2
-"set mouse=a     "启用鼠标"
+set mouse=a     "启用鼠标"
 set selection=exclusive
 set selectmode=mouse, key
 set matchtime=5
