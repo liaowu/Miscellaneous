@@ -1,0 +1,41 @@
+INSERT INTO FormFieldDescription
+           (FormDescriptionID
+           ,XPath
+           ,fieldKey
+           ,fieldName
+           ,fieldType
+           ,fieldValueType
+           ,FieldOrder
+           ,SectionName
+           ,FieldNameOverride
+           ,FieldVisibleOverride
+           ,FieldWidthOverride
+           ,AllowMultiple
+           ,FormSubID)
+     VALUES
+           (1402,'/date','date','Departure Date','DatePicker','DateOnly',1,'Header', NULL,NULL,NULL,0,NULL),
+		   (1402,'/site','site','Site','GlobalListPicker','Array',2,'Header', NULL,NULL,NULL,0,NULL),
+		   (1402,'/job_number','job_number','Job Number','GlobalListPicker','Array',3,'Header', NULL,NULL,NULL,0,NULL),
+		   (1402,'/level','level','Level','GlobalListPicker','Array',4,'Header', NULL,NULL,NULL,0,NULL),
+		   (1402,'/workplace','workplace','Workplace','SingleLineEntryAlpha','String',5,'Header', NULL,NULL,NULL,0,NULL),
+		   (1402,'/supervisor','supervisor','Supervisor','GlobalListPicker','Array',6,'Header', NULL,NULL,NULL,0,NULL),
+		   (1402,'/durationlistpicker_81','durationlistpicker_81','Duration','GlobalListPicker','Array',7,'Duration', NULL,NULL,NULL,0,NULL),
+		   (1402,'/Report_Distribution1','Report_Distribution1','Report Distribution','GlobalListPicker','Array',8,'Distribution', NULL,NULL,NULL,1,NULL),
+       (1402,'/employee_name','employee_name','Employee Name','GlobalListPicker','Array',9,'Employee', NULL,NULL,NULL,0,NULL),
+       (1402,'/employee_position','employee_position','Employee Position','SingleLineEntryAlpha','String',10,'Employee', NULL,NULL,NULL,0,NULL),
+       (1402,'/reason_departure','reason_departure','Reason For Departure','GlobalListPicker','Array',11,'Employee', NULL,NULL,NULL,0,NULL),
+       (1402,'/provide_notice','provide_notice','Did employee provide notice?','ListPicker','Array',12,'Employee', NULL,NULL,NULL,0,NULL),
+       (1402,'/pay_mining_bonus','pay_mining_bonus','Pay mining bonus?','ListPicker','Array',13,'Employee', NULL,NULL,NULL,0,NULL),
+       (1402,'/pay_zero_harm','pay_zero_harm','Pay zero harm?','ListPicker','Array',14,'Employee', NULL,NULL,NULL,0,NULL),
+		   (1402,'/other_reasons','other_reasons','Other Reasons','SingleLineEntryAlpha','String',15,'Employee', NULL,NULL,NULL,0,NULL),
+		   (1402,'/departure_code','departure_code','Departure Code','SingleLineEntryAlpha','String',16,'Employee', NULL,NULL,NULL,0,NULL),
+       (1402,'/performance_safety','performance_safety','Safety','GlobalListPicker','Array',17,'Performance', NULL,NULL,NULL,0,NULL),
+       (1402,'/performance_attendance','performance_attendance','Attendance','GlobalListPicker','Array',18,'Performance', NULL,NULL,NULL,0,NULL),
+       (1402,'/performance_attitude','performance_attitude','Attitude','GlobalListPicker','Array',19,'Performance', NULL,NULL,NULL,0,NULL),
+       (1402,'/performance_care','performance_care','Care of tools/equipment','GlobalListPicker','Array',20,'Performance', NULL,NULL,NULL,0,NULL),
+       (1402,'/recommended_rehire','recommended_rehire','Is this person recommended for rehire?','ListPicker','Array',21,'Performance', NULL,NULL,NULL,0,NULL),
+       (1402,'/assets_collected','assets_collected','Assets collected','GlobalListPicker','Array',22,'Assets', NULL,NULL,NULL,1,NULL),
+       (1402,'/arrangement_assets','arrangement_assets','Arrangments made for mobile assets?','ListPicker','Array',23,'Assets', NULL,NULL,NULL,0,NULL),
+		   (1402,'/additional_information','additional_information','Additional information','SingleLineEntryAlpha','String',24,'Assets', NULL,NULL,NULL,0,NULL);
+
+SELECT * FROM FormFieldDescription WHERE FormDescriptionID=1402
