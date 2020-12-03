@@ -1,0 +1,319 @@
+<modal id="employeeDepartureModal" >
+    <div class="modal-m">
+        <div class="modal-body" id="select2Parent">
+            <div class="modal-header">
+                <h5><strong>Employee Departure</strong></h5>
+                <img class="close-modal" src="images/icon-small-close-x.svg" ng-click="vm.closeModal('employeeDepartureModal')" />
+            </div>
+            <form name="employeeDepartureForm" id="employeeDepartureForm" class="needs-validation overflow-auto scroll" style="height: calc(95vh - 6rem);" novalidate>
+                <div class="container-fluid">
+                    <div class="row">
+
+
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <select class = "select-single" name="employee_name" id="employee_name" ng-options="emp.per_id as emp.per_full_name for emp in vm.employeeList" ng-model="vm.currentEmpDisc.employee_name" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="employee_name" ng-class="{filled:vm.currentEmpDisc.employee_name,active:vm.currentEmpDisc.employee_name}">Name</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <select class="select-single" name="site" id="site" ng-options="site.rld_name as site.rld_name for site in vm.siteList" ng-model="vm.currentEmpDisc.site" ng-change="vm.getJobsLevels()" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="site" ng-class="{filled:vm.currentEmpDisc.site, active:vm.currentEmpDisc.site}">Site</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <select class = "select-single" name="disc_job_number" id="disc_job_number" ng-options="jobNum.rld_name as jobNum.rld_name for jobNum in vm.jobListSelect" ng-model="vm.currentEmpDisc.job_number" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="disc_job_number" ng-class="{filled:vm.currentEmpDisc.job_number,active:vm.currentEmpDisc.job_number}">Job Number</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <select class = "select-single" name="supervisor" id="supervisor" ng-options="sup.per_full_name as sup.per_full_name for sup in vm.supervisorList" ng-model="vm.currentEmpDisc.supervisor" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="supervisor" ng-class="{filled:vm.currentEmpDisc.supervisor,active:vm.currentEmpDisc.supervisor}">Supervisor</label>
+                            </div>
+                        </div>
+                       <div class="col-4">
+                            <div class="md-form mb-0">
+                                <input type="text" name="date" id="date" class="form-control datepicker" ng-model="vm.currentEmpDisc.headerdate" ng-required="true" />
+                                <label for="date" ng-class="{filled:vm.currentEmpDisc.headerdate,active:vm.currentEmpDisc.headerdate}">Departure Date</label>
+                            </div>
+                        </div> 
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <input class="form-control" name="disc_position" id="disc_position" type="text" ng-model="vm.currentEmpDisc.position" ng-required="true"/>
+                                <label for="disc_position" ng-class="{filled:vm.currentEmpDisc.position,active:vm.currentEmpDisc.position}">Position</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <select class="select-single" name="reason_departure" id="reason_departure" ng-options="rea.rld_name as rea.rld_name for rea in vm.reasonDepartureList" ng-model="vm.currentEmpDisc.reasonDeparture"  ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="reason_departure" ng-class="{filled:vm.currentEmpDisc.reason_departure,active:vm.currentEmpDisc.reason_departure}">Reason for Departure</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group mb-4 mt-4">
+                                <label class="d-block">Did employee provide notice?</label>
+                                <div class="form-check custom-radio pl-0">
+                                    <input type="radio" class="form-check-input" id="provide_notice_yes" name="provide_notice" value="1" ng-model="vm.currentEmpRev.safety_stats" ng-click="vm.calcSafetyScore()" required>
+                                    <label class="form-check-label mr-2" for="provide_notice_yes">Yes</label>
+
+                                    <input type="radio" class="form-check-input" id="provide_notice_no" name="provide_notice" value="0" ng-model="vm.currentEmpRev.safety_stats" ng-click="vm.calcSafetyScore()">
+                                    <label class="form-check-label mr-2" for="provide_notice_no">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-5">
+                            <div class="form-check d-flex align-self-left">
+                                <input type="checkbox" class="form-check-input" id="pay_mining_bonus" name="pay_mining_bonus">
+                                <label class="form-check-label" for="pay_mining_bonus">Do not pay mining bonus?</label>
+                            </div>
+                            <div class="form-check d-flex align-self-left">
+                                <input type="checkbox" class="form-check-input" id="pay_zero_harm" name="pay_zero_harm">
+                                <label class="form-check-label" for="pay_zero_harm">Do not pay zero harm?</label>
+                            </div>
+                        </div>
+
+                        <h4 class="section-title col-12 mt-4">Employee Performance</h4>
+
+
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <select class = "select-single" name="performance_safety" id="performance_safety" ng-options="" ng-model="" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="performance_safety" ng-class="">Safety</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <select class="select-single" name="performance_attendance" id="performance_attendance" ng-options="" ng-model="" ng-change="" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="performance_attendance" ng-class="{filled:vm.currentEmpDisc.site, active:vm.currentEmpDisc.site}">Atendance</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <select class = "select-single" name="performance_attitude" id="performance_attitude" ng-options="" ng-model="" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="performance_attitude" ng-class="">Attitude</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="md-form mb-0">
+                                <select class = "select-single" name="performance_care" id="performance_care" ng-options="" ng-model="" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="performance_care" ng-class="">Care</label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="form-group mb-4 mt-4">
+                                <label class="d-block">Is this person recommended for rehire?</label>
+                                <div class="form-check custom-radio pl-0">
+                                    <input type="radio" class="form-check-input" id="recommended_rehire_yes" name="recommended_rehire" value="1" ng-model="" ng-click="" required>
+                                    <label class="form-check-label mr-2" for="recommended_rehire_yes">Yes</label>
+
+                                    <input type="radio" class="form-check-input" id="recommended_rehire_no" name="recommended_rehire" value="0" ng-model="" ng-click="">
+                                    <label class="form-check-label mr-2" for="recommended_rehire_no">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="section-title col-12 mt-4">Employee Assets collected for return (check with IT for updated assigned assets)</h4>
+
+                        <div class="col-12">
+                            <div class="md-form mb-0">
+                                <select class = "select-single" name="assets_collected" id="assets_collected" ng-options="emp.per_id as emp.per_full_name for emp in vm.employeeList" ng-model="vm.currentEmpDisc.employee_name" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="assets_collected" ng-class="{filled:vm.currentEmpDisc.employee_name,active:vm.currentEmpDisc.employee_name}">Assets Collected</label>
+                            </div>
+                        </div>
+                        <br /> <br /> <br />  <br />  
+                        <div class="col-12">
+                            <div class="form-check d-flex align-self-center">
+                                <input type="checkbox" class="form-check-input" id="arrangement_assets" name="arrangement_assets">
+                                <label class="form-check-label" for="arrangement_assets">Arrangements made for mobile assets</label>
+                            </div>
+                        </div>
+                       
+                        <div class="col-12">
+                            <div class="md-form mb-0">
+                                <textarea class="form-control md-textarea" name="additional_information" id="additional_information" ng-model="vm.currentEmpDisc.event" ng-required="true"></textarea>
+                                <label for="additional_information" ng-class="{filled:vm.currentEmpDisc.event,active:vm.currentEmpDisc.event}">Additional Information</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="md-form mb-0">
+                                <select class = "select-multiple" name="distribution" id="distribution" ng-options="dis.email as dis.name for dis in vm.distributionList" ng-model="vm.currentEmpDisc.Report_Distribution1" multiple></select>
+                                <label for="distribution" ng-class="{filled:vm.currentEmpDisc.Report_Distribution1.length > 0,active:vm.currentEmpDisc.Report_Distribution1.length > 0}">Distribution</label>
+                            </div>
+                        </div>
+
+                    
+                        <div class="col-12">
+                            <div class="md-form mb-0">
+                                <select class = "select-single" name="supervisor" id="supervisor" ng-options="sup.per_full_name as sup.per_full_name for sup in vm.supervisorList" ng-model="vm.currentEmpDisc.supervisor" ng-required="true">
+                                    <option value=""></option>
+                                </select>
+                                <label for="supervisor" ng-class="{filled:vm.currentEmpDisc.supervisor,active:vm.currentEmpDisc.supervisor}">Supervisor</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label class="d-block mt-2">Event Type</label>
+                            <div class="row pl-4">
+                                <label class="radio pointer">
+                                    <input type="radio" class="form-check-input" name='radio_event_type' ng-model="vm.currentEmpDisc.event_type" value="A" ng-required="true">
+                                    <img ng-src="images/radio-{{vm.currentEmpDisc.event_type == 'A' ? 'on' : 'off'}}.svg" />
+                                    <label class="form-check-label">A</label>
+                                </label>
+                                <label class="radio pointer">
+                                    <input type="radio" class="form-check-input" name='radio_event_type' ng-model="vm.currentEmpDisc.event_type" value="B">
+                                    <img ng-src="images/radio-{{vm.currentEmpDisc.event_type == 'B' ? 'on' : 'off'}}.svg" />
+                                    <label class="form-check-label">B</label>
+                                </label>
+                                <label class="radio pointer">
+                                    <input type="radio" class="form-check-input" name='radio_event_type' ng-model="vm.currentEmpDisc.event_type" value="C">
+                                    <img ng-src="images/radio-{{vm.currentEmpDisc.event_type == 'C' ? 'on' : 'off'}}.svg" />
+                                    <label class="form-check-label">C</label>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="d-block mt-3">This is to confirm you have been counselled for:</label>
+                            <div class="col pl-2">
+                                <label class="radio pointer">
+                                    <input type="radio" class="form-check-input" name='radio_counselled' ng-model="vm.currentEmpDisc.counselled" value="Written Warning" ng-required="true">
+                                    <img ng-src="images/radio-{{vm.currentEmpDisc.counselled == 'Written Warning' ? 'on' : 'off'}}.svg" />
+                                    <label class="form-check-label">Written Warning</label>
+                                </label>
+                                <label class="radio pointer">
+                                    <input type="radio" class="form-check-input" name='radio_counselled' ng-model="vm.currentEmpDisc.counselled" value="Written Warning with Loss of Safety Bonus">
+                                    <img ng-src="images/radio-{{vm.currentEmpDisc.counselled == 'Written Warning with Loss of Safety Bonus' ? 'on' : 'off'}}.svg" />
+                                    <label class="form-check-label">Written Warning with Loss of Safety Bonus</label>
+                                </label>
+                                <label class="radio pointer">
+                                    <input type="radio" class="form-check-input" name='radio_counselled' ng-model="vm.currentEmpDisc.counselled" value="Time Off and Loss of Wages">
+                                    <img ng-src="images/radio-{{vm.currentEmpDisc.counselled == 'Time Off and Loss of Wages' ? 'on' : 'off'}}.svg" />
+                                    <label class="form-check-label">Time Off and Loss of Wages</label>
+                                </label>
+                                <label class="radio pointer">
+                                    <input type="radio" class="form-check-input" name='radio_counselled' ng-model="vm.currentEmpDisc.counselled" value="Time Off and Loss of Wages and Safety Bonus">
+                                    <img ng-src="images/radio-{{vm.currentEmpDisc.counselled == 'Time Off and Loss of Wages and Safety Bonus' ? 'on' : 'off'}}.svg" />
+                                    <label class="form-check-label">Time Off and Loss of Wages and Safety Bonus</label>
+                                </label>
+                                <label class="radio pointer">
+                                    <input type="radio" class="form-check-input" name='radio_counselled' ng-model="vm.currentEmpDisc.counselled" value="Discharge">
+                                    <img ng-src="images/radio-{{vm.currentEmpDisc.counselled == 'Discharge' ? 'on' : 'off'}}.svg" />
+                                    <label class="form-check-label">Discharge</label>
+                                </label>
+                                <label class="radio pointer">
+                                    <input type="radio" class="form-check-input" name='radio_counselled' ng-model="vm.currentEmpDisc.counselled" value="Discharge with Loss of Safety Bonus">
+                                    <img ng-src="images/radio-{{vm.currentEmpDisc.counselled == 'Discharge with Loss of Safety Bonus' ? 'on' : 'off'}}.svg" />
+                                    <label class="form-check-label">Discharge with Loss of Safety Bonus</label>
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-12">
+                            <div class="md-form mb-0">
+                                <textarea class="form-control md-textarea" name="disc_event" id="disc_event" ng-model="vm.currentEmpDisc.event" ng-required="true"></textarea>
+                                <label for="disc_event" ng-class="{filled:vm.currentEmpDisc.event,active:vm.currentEmpDisc.event}">Departure Event Description</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-3">
+							<label class="text-muted">Employee Signature</label>
+							<div class="btn-group d-flex" role="group" aria-label="Action subforms" >
+								<div id="sign_button1" class='btn btn-outline-secondary col waves-effect p-2 m-0 sign' ng-click="vm.openSignModal($event)" signaturename='signature_employee'><i class="fa fa-pen"></i> Sign </div>
+								<div class='btn btn-outline-secondary col waves-effect p-2 m-0 clear_sign d-none'><i class="fa fa-eraser"></i> Clear </div>
+							</div>
+							<img id='signature_employee_img' src='' class='signatureImage d-block pt-2'/>
+							<input type="hidden" name="signature_employee" id="signature_employee" class='modalSignature' value='' required>
+							<input type="hidden" name="vector_employee" id='vector_employee' value=''>
+                        </div>
+                        
+                        <div class="col-12 mt-3">
+							<label class="text-muted">Supervisor Signature</label>
+							<div class="btn-group d-flex" role="group" aria-label="Action subforms">
+								<div id="sign_button2" class='btn btn-outline-secondary col waves-effect p-2 m-0 sign' ng-click="vm.openSignModal($event)" signaturename='signature_superintendent'><i class="fa fa-pen"></i> Sign </div>
+								<div class='btn btn-outline-secondary col waves-effect p-2 m-0 clear_sign d-none'><i class="fa fa-eraser"></i> Clear </div>
+							</div>
+							<img id='signature_superintendent_img' src='' class='signatureImage d-block pt-2'/>
+							<input type="hidden" name="signature_superintendent" id="signature_superintendent" class='modalSignature' value=''>
+							<input type="hidden" name="vector_employee" id='vector_employee' value=''>
+                        </div>
+                        
+                        <div class="col-12 mt-3">
+							<label class="text-muted">Superintendent or Manager Signature</label>
+							<div class="btn-group d-flex" role="group" aria-label="Action subforms">
+								<div id="sign_button3" class='btn btn-outline-secondary col waves-effect p-2 m-0 sign' ng-click="vm.openSignModal($event)" signaturename='signature_manager'><i class="fa fa-pen"></i> Sign </div>
+								<div class='btn btn-outline-secondary col waves-effect p-2 m-0 clear_sign d-none'><i class="fa fa-eraser"></i> Clear </div>
+							</div>
+							<img id='signature_manager_img' src='' class='signatureImage d-block pt-2'/>
+							<input type="hidden" name="signature_manager" id="signature_manager" class='modalSignature' value=''>
+							<input type="hidden" name="vector_employee" id='vector_employee' value=''>
+						</div>
+
+                        <div class="col-12">
+                            <div class="md-form mb-0">
+                                <select class = "select-multiple" name="disc_distribution" id="disc_distribution" ng-options="dis.email as dis.name for dis in vm.distributionList" ng-model="vm.currentEmpDisc.Report_Distribution1" multiple></select>
+                                <label for="disc_distribution" ng-class="{filled:vm.currentEmpDisc.Report_Distribution1.length > 0,active:vm.currentEmpDisc.Report_Distribution1.length > 0}">Distribution</label>
+                            </div>
+                        </div>
+-->
+                    </div>
+                    <div name="control-section" class="control-section mt-4">
+                        <button ng-disabled="vm.submitted" type="button" class="btn btn-primary btn-rounded m-0" ng-click="vm.createEmpDisc()">Submit</button>
+                        <button type="button" class="btn btn-outline-primary btn-rounded m-0 mr-3" ng-click="vm.closeModal('employeeDepartureModal)">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>   
+
+    <div class="modal-background"></div>
+</modal>
+
+
+<modal id="signatureModal" >       
+    <div class="modal-m" style="min-width:700px; z-index: 1200;" id="sigModal" >
+        <div class="modal-header" style="background-color: #0072ce;">
+            <h5 class="text-white"><strong>Signature</strong></h5>
+        </div>
+        <div class="modal-body">
+            <form class="sigPadModal">
+                <canvas name="SignatureCanvas" id ='SignatureCanvas' class="border border-light rounded pad2" style="width: 100%; height: 200px;"></canvas>
+                <input id="output" type="hidden" name="output" class="output">
+                <div name="control-section" class="control-section mt-4">
+                    <button id='sigModalOK' type="button" class="btn btn-primary btn-rounded m-0" >Done</button>
+                    <button id='reSignButton' type="button" class="btn btn-outline-primary btn-rounded m-0 mr-3" >Re-Sign</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-background" style="z-index: 1100;"></div>
+</modal>
+
