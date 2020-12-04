@@ -15,6 +15,11 @@ safeToDo.component("employeeDepartureForm", {
         let dateToday = moment(new Date(), 'YYYY-MM-DD')
         vm.siteList = []
         vm.reasonDepartureList = []
+        vm.employeePerformanceSafetyList = []
+        vm.employeePerformanceAttendanceList = []
+        vm.employeePerformanceAttitudeList = []
+        vm.employeePerformanceCareList = []
+        vm.assetsCollectedList = []
         vm.jobList = []
         vm.jobListSelect = []
         vm.levelList = []
@@ -35,6 +40,11 @@ safeToDo.component("employeeDepartureForm", {
                 headerdate: dateToday.format("YYYY-MM-DD"),
                 site: '',
                 reasonDeparture: '', 
+                employeePerformanceSafety: '',
+                employeePerformanceAttendance: '',
+                employeePerformanceAttitude: '',
+                employeePerformanceCare: '',
+                assetsCollected: '',
                 job_number: '',
                 level: '',
                 position: '',
@@ -224,6 +234,8 @@ safeToDo.component("employeeDepartureForm", {
                 listService.getSelectListData('ref_job'),
                 listService.getSelectListData('ref_level'),
                 listService.getSelectListData('ref_reason_departure'),
+                listService.getSelectListData('ref_employee_performance'),
+                listService.getSelectListData('ref_assets_collected'),
                 profileService.getAllEmployeeProfile(),
                 profileService.getAllSupervisorProfile(),
                 profileService.getDistributionList()
@@ -234,6 +246,11 @@ safeToDo.component("employeeDepartureForm", {
                 vm.jobList = data[1]
                 vm.levelList = data[2]
                 vm.reasonDepartureList = data[3]
+                vm.employeePerformanceSafetyList = data[4]
+                vm.employeePerformanceAttendanceList = data[4]
+                vm.employeePerformanceAttitudeList = data[4]
+                vm.employeePerformanceCareList = data[4]
+                vm.assetsCollectedList = data[5]
                 vm.employeeList = profileService.readAllEmployeeProfile()
                 vm.supervisorList = profileService.readAllSupervisorProfile()  
                 vm.distributionList = profileService.readDistributionList()              

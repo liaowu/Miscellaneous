@@ -3,7 +3,7 @@ angular
     .service('employeeDepartureService', ['$http',
         function ($http) {            
             return {                
-                createEmployeedeparture: (payload) => {
+                createEmployeeDeparture: (payload) => {
                     console.log("This is the Employee departure payload", payload)
                     return $http.post(`${__env.apiUrl}/api/wafs/form-submission-engine/`, payload).then((response) => {
                         return response.data

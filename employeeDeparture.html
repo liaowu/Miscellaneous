@@ -59,7 +59,7 @@
                                 <select class="select-single" name="reason_departure" id="reason_departure" ng-options="rea.rld_name as rea.rld_name for rea in vm.reasonDepartureList" ng-model="vm.currentEmpDisc.reasonDeparture"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="reason_departure" ng-class="{filled:vm.currentEmpDisc.reason_departure,active:vm.currentEmpDisc.reason_departure}">Reason for Departure</label>
+                                <label for="reason_departure" ng-class="{filled:vm.currentEmpDisc.reasonDeparture,active:vm.currentEmpDisc.reasonDeparture}">Reason for Departure</label>
                             </div>
                         </div>
 
@@ -89,41 +89,38 @@
 
                         <h4 class="section-title col-12 mt-4">Employee Performance</h4>
 
-
                         <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class = "select-single" name="performance_safety" id="performance_safety" ng-options="" ng-model="" ng-required="true">
+                                <select class="select-single" name="employee_performance_safety" id="employee_performance_safety" ng-options="safety.rld_name as safety.rld_name for safety in vm.employeePerformanceSafetyList" ng-model="vm.currentEmpDisc.employeePerformanceSafety"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="performance_safety" ng-class="">Safety</label>
+                                <label for="employee_performance_safety" ng-class="{filled:vm.currentEmpDisc.employeePerformanceSafety,active:vm.currentEmpDisc.employeePerformanceSafety}">Safety</label>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class="select-single" name="performance_attendance" id="performance_attendance" ng-options="" ng-model="" ng-change="" ng-required="true">
+                                <select class="select-single" name="employee_performance_attendance" id="employee_performance_attendance" ng-options="attendance.rld_name as attendance.rld_name for attendance in vm.employeePerformanceAttendanceList" ng-model="vm.currentEmpDisc.employeePerformanceAttendance"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="performance_attendance" ng-class="{filled:vm.currentEmpDisc.site, active:vm.currentEmpDisc.site}">Atendance</label>
+                                <label for="employee_performance_attendance" ng-class="{filled:vm.currentEmpDisc.employeePerformanceAttendance,active:vm.currentEmpDisc.employeePerformanceAttendance}">Atendance</label>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class = "select-single" name="performance_attitude" id="performance_attitude" ng-options="" ng-model="" ng-required="true">
+                                <select class="select-single" name="employee_performance_attitude" id="employee_performance_attitude" ng-options="attitude.rld_name as attitude.rld_name for attitude in vm.employeePerformanceAttitudeList" ng-model="vm.currentEmpDisc.employeePerformanceAttitude"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="performance_attitude" ng-class="">Attitude</label>
+                                <label for="employee_performance_attitude" ng-class="{filled:vm.currentEmpDisc.employeePerformanceAttitude,active:vm.currentEmpDisc.employeePerformanceAttitude}">Attitude</label>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class = "select-single" name="performance_care" id="performance_care" ng-options="" ng-model="" ng-required="true">
+                                <select class="select-single" name="employee_performance_care" id="employee_performance_care" ng-options="care.rld_name as care.rld_name for care in vm.employeePerformanceCareList" ng-model="vm.currentEmpDisc.employeePerformanceCare"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="performance_care" ng-class="">Care</label>
+                                <label for="employee_performance_care" ng-class="{filled:vm.currentEmpDisc.employeePerformanceCare,active:vm.currentEmpDisc.employeePerformanceCare}">Care</label>
                             </div>
                         </div>
-
-
                         <div class="col-12">
                             <div class="form-group mb-4 mt-4">
                                 <label class="d-block">Is this person recommended for rehire?</label>
@@ -136,18 +133,14 @@
                                 </div>
                             </div>
                         </div>
-
-                        <h4 class="section-title col-12 mt-4">Employee Assets collected for return (check with IT for updated assigned assets)</h4>
-
                         <div class="col-12">
-                            <div class="md-form mb-0">
-                                <select class = "select-single" name="assets_collected" id="assets_collected" ng-options="emp.per_id as emp.per_full_name for emp in vm.employeeList" ng-model="vm.currentEmpDisc.employee_name" ng-required="true">
-                                    <option value=""></option>
-                                </select>
-                                <label for="assets_collected" ng-class="{filled:vm.currentEmpDisc.employee_name,active:vm.currentEmpDisc.employee_name}">Assets Collected</label>
-                            </div>
+                            <h4 class="section-title col-12 mt-4">Employee Assets collected for return (check with IT for updated assigned assets)</h4>
+                            <label class="col-12 mt-4">Assets Collected</label>
+                            <select multiple class="select-multiple" name="assets_collected" ng-model="vm.currentEmpDisc.assetsCollected" ng-required="true">
+                            <option value="{{asset.rld_name}}" ng-repeat="asset in vm.assetsCollectedList">{{asset.rld_name}}</option>
+                            </select>
                         </div>
-                        <br /> <br /> <br />  <br />  
+                     <!--   <br /> <br /> <br />  <br />  -->
                         <div class="col-12">
                             <div class="form-check d-flex align-self-center">
                                 <input type="checkbox" class="form-check-input" id="arrangement_assets" name="arrangement_assets">
@@ -167,17 +160,6 @@
                                 <label for="distribution" ng-class="{filled:vm.currentEmpDisc.Report_Distribution1.length > 0,active:vm.currentEmpDisc.Report_Distribution1.length > 0}">Distribution</label>
                             </div>
                         </div>
-
-                    
-                        <div class="col-12">
-                            <div class="md-form mb-0">
-                                <select class = "select-single" name="supervisor" id="supervisor" ng-options="sup.per_full_name as sup.per_full_name for sup in vm.supervisorList" ng-model="vm.currentEmpDisc.supervisor" ng-required="true">
-                                    <option value=""></option>
-                                </select>
-                                <label for="supervisor" ng-class="{filled:vm.currentEmpDisc.supervisor,active:vm.currentEmpDisc.supervisor}">Supervisor</label>
-                            </div>
-                        </div>
-                        
                         <div class="col-12">
                             <label class="d-block mt-2">Event Type</label>
                             <div class="row pl-4">
