@@ -67,10 +67,10 @@
                             <div class="form-group mb-4 mt-4">
                                 <label class="d-block">Did employee provide notice?</label>
                                 <div class="form-check custom-radio pl-0">
-                                    <input type="radio" class="form-check-input" id="provide_notice_yes" name="provide_notice" value="1" ng-model="vm.currentEmpDisc.provide_notice" required>
+                                    <input type="radio" class="form-check-input" id="provide_notice_yes" name="provide_notice" value="1" ng-model="vm.currentEmpDisc.provide_notice" ng-required="vm.currentEmpDisc.reason_departure == 'Quit [E00]'">
                                     <label class="form-check-label mr-2" for="provide_notice_yes">Yes</label>
 
-                                    <input type="radio" class="form-check-input" id="provide_notice_no" name="provide_notice" value="0" ng-model="vm.currentEmpDisc.provide_notice" >
+                                    <input type="radio" class="form-check-input" id="provide_notice_no" name="provide_notice" value="0" ng-model="vm.currentEmpDisc.provide_notice"  ng-required="vm.currentEmpDisc.reason_departure == 'Quit [E00]'">
                                     <label class="form-check-label mr-2" for="provide_notice_no">No</label>
                                 </div>
                             </div>
@@ -78,18 +78,18 @@
 
                         <div class="col-5" ng-show="vm.currentEmpDisc.reason_departure == 'Quit [E00]' || vm.currentEmpDisc.reason_departure == 'Dismissal [M00]'">
                             <div class="form-check d-flex align-self-left">
-                                <input type="checkbox" class="form-check-input" id="pay_mining_bonus" name="pay_mining_bonus" value="1" ng-model="vm.currentEmpDisc.pay_mining_bonus" >
+                                <input type="checkbox" class="form-check-input" id="pay_mining_bonus" name="pay_mining_bonus" value="1" ng-model="vm.currentEmpDisc.pay_mining_bonus"  ng-required="vm.currentEmpDisc.reason_departure == 'Quit [E00]' || vm.currentEmpDisc.reason_departure == 'Dismissal [M00]'">
                                 <label class="form-check-label" for="pay_mining_bonus">Do not pay mining bonus?</label>
                             </div>
                             <div class="form-check d-flex align-self-left">
-                                <input type="checkbox" class="form-check-input" id="pay_zero_harm" name="pay_zero_harm" value="1" ng-model="vm.currentEmpDisc.pay_zero_harm" >
+                                <input type="checkbox" class="form-check-input" id="pay_zero_harm" name="pay_zero_harm" value="1" ng-model="vm.currentEmpDisc.pay_zero_harm" ng-required="vm.currentEmpDisc.reason_departure == 'Quit [E00]' || vm.currentEmpDisc.reason_departure == 'Dismissal [M00]'">>
                                 <label class="form-check-label" for="pay_zero_harm">Do not pay zero harm?</label>
                             </div>
                         </div>
 
                         <div class="col-12" ng-show="vm.currentEmpDisc.reason_departure == 'Other'">
-                            <div class="md-form form-check d-flex align-self-left">
-                                <textarea class="form-control md-textarea" name="other_reasons" id="other_reasons" ng-model="vm.currentEmpDisc.other_reasons" ng-required="true"></textarea>
+                            <div class="md-form d-flex align-self-left">
+                                <textarea class="form-control md-textarea" name="other_reasons" id="other_reasons" ng-model="vm.currentEmpDisc.other_reasons" ng-required="vm.currentEmpDisc.reason_departure == 'Other'"></textarea>
                                 <label for="other_reasons" ng-class="{filled:vm.currentEmpDisc.other_reasons,active:vm.currentEmpDisc.other_reasons}">Other reasons</label>
                             </div>
                         </div>
