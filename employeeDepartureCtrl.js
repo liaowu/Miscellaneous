@@ -15,11 +15,10 @@ safeToDo.component("employeeDepartureForm", {
         let dateToday = moment(new Date(), 'YYYY-MM-DD')
         vm.siteList = []
         vm.reasonDepartureList = []
-        vm.employeePerformanceList = []
- /*        vm.employeePerformanceSafetyList = []
+        vm.employeePerformanceSafetyList = []
         vm.employeePerformanceAttendanceList = []
         vm.employeePerformanceAttitudeList = []
-        vm.employeePerformanceCareList = [] */
+        vm.employeePerformanceCareList = []
         vm.assetsCollectedList = []
         vm.jobList = []
         vm.jobListSelect = []
@@ -41,22 +40,24 @@ safeToDo.component("employeeDepartureForm", {
                 employee_name: null,
                 site: '',
                 job_number: '',
-                supervisor: '',               
+                level: '',    
+                workplace: '',
+                supervisor: '',                           
                 headerdate: dateToday.format("YYYY-MM-DD"),
-                position: '',
-                reasonDeparture: '', 
-                provideNotice: '',
-                payMiningBonus: '',
-                payZeroHarm: '',
-                employeePerformance: '',
-  /*               employeePerformanceSafety: '',
-                employeePerformanceAttendance: '',
-                employeePerformanceAttitude: '',
-                employeePerformanceCare: '', */
-                recommendRehire: '',
-                assetsCollected: '',
-                arrangeMobile: '',
-                additionalInfo: '',
+                employee_position: '',
+                reason_departure: '', 
+                provide_notice: '',
+                pay_mining_bonus: '',
+                pay_zero_harm: '',
+                departure_code: '',
+                performance_safety: '',
+                performance_attendance: '',
+                performance_attitude: '',
+                performance_care: '',
+                recommended_rehire: '',
+                assets_collected: '',
+                arrangement_assets: '',
+                additional_information: '',
                 Report_Distribution1: []
             }
         }
@@ -73,10 +74,12 @@ safeToDo.component("employeeDepartureForm", {
             }
         }
         //Function to get jobs at a site
-        vm.getJobList = () => {
+        vm.getJobsLevels = () => {
             let mainSite = ''
             vm.currentEmpDisc.job_number = ''
+            vm.currentEmpDisc.level = ''
             vm.jobListSelect = []
+            vm.levelListSelect = []
             vm.siteList.forEach((rec) => {
                 if(rec.rld_name == vm.currentEmpDisc.site)
                 {
@@ -87,6 +90,11 @@ safeToDo.component("employeeDepartureForm", {
                 if(rec.rld_parent_detail_rld_id == mainSite)
                     vm.jobListSelect.push(rec)
             })
+            vm.levelList.forEach((rec) => {
+                if(rec.rld_parent_detail_rld_id == mainSite)
+                    vm.levelListSelect.push(rec)
+            })
+            
         }
 
         //Function to prepare payload data
@@ -136,16 +144,15 @@ safeToDo.component("employeeDepartureForm", {
                 vm.jobList = data[1]
                 vm.levelList = data[2]
                 vm.reasonDepartureList = data[3]
-                vm.employeePerformance= data[4]
-/*                 vm.employeePerformanceSafetyList = data[4]
+                vm.employeePerformanceSafetyList = data[4]
                 vm.employeePerformanceAttendanceList = data[4]
                 vm.employeePerformanceAttitudeList = data[4]
-                vm.employeePerformanceCareList = data[4] */
+                vm.employeePerformanceCareList = data[4]
                 vm.assetsCollectedList = data[5]
                 vm.employeeList = profileService.readAllEmployeeProfile()
                 vm.supervisorList = profileService.readAllSupervisorProfile()  
                 vm.distributionList = profileService.readDistributionList()              
-            })                    
+            })      
         }
 
         refreshData()

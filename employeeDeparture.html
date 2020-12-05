@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class="select-single" name="site" id="site" ng-options="site.rld_name as site.rld_name for site in vm.siteList" ng-model="vm.currentEmpDisc.site" ng-change="vm.getJobList()" ng-required="true">
+                                <select class="select-single" name="site" id="site" ng-options="site.rld_name as site.rld_name for site in vm.siteList" ng-model="vm.currentEmpDisc.site" ng-change="vm.getJobsLevels()" ng-required="true">
                                     <option value=""></option>
                                 </select>
                                 <label for="site" ng-class="{filled:vm.currentEmpDisc.site, active:vm.currentEmpDisc.site}">Site</label>
@@ -44,22 +44,22 @@
                         </div>
                        <div class="col-4">
                             <div class="md-form mb-0">
-                                <input type="text" name="date" id="date" class="form-control datepicker" ng-model="vm.currentEmpDisc.headerdate" ng-required="true" />
+                                <input type="text" name="headerdate" id="headerdate" class="form-control datepicker" ng-model="vm.currentEmpDisc.headerdate" ng-required="true" />
                                 <label for="date" ng-class="{filled:vm.currentEmpDisc.headerdate,active:vm.currentEmpDisc.headerdate}">Departure Date</label>
                             </div>
                         </div> 
                         <div class="col-4">
                             <div class="md-form mb-0">
                                 <input class="form-control" name="disc_position" id="disc_position" type="text" ng-model="vm.currentEmpDisc.position" ng-required="true"/>
-                                <label for="disc_position" ng-class="{filled:vm.currentEmpDisc.position,active:vm.currentEmpDisc.position}">Position</label>
+                                <label for="disc_position" ng-class="{filled:vm.currentEmpDisc.position,active:vm.currentEmpDisc.employee_position}">Position</label>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class="select-single" name="reason_departure" id="reason_departure" ng-options="rea.rld_name as rea.rld_name for rea in vm.reasonDepartureList" ng-model="vm.currentEmpDisc.reasonDeparture"  ng-required="true">
+                                <select class="select-single" name="reason_departure" id="reason_departure" ng-options="rea.rld_name as rea.rld_name for rea in vm.reasonDepartureList" ng-model="vm.currentEmpDisc.reason_departure"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="reason_departure" ng-class="{filled:vm.currentEmpDisc.reasonDeparture,active:vm.currentEmpDisc.reasonDeparture}">Reason for Departure</label>
+                                <label for="reason_departure" ng-class="{filled:vm.currentEmpDisc.reasonDeparture,active:vm.currentEmpDisc.reason_departure}">Reason for Departure</label>
                             </div>
                         </div>
 
@@ -67,10 +67,10 @@
                             <div class="form-group mb-4 mt-4">
                                 <label class="d-block">Did employee provide notice?</label>
                                 <div class="form-check custom-radio pl-0">
-                                    <input type="radio" class="form-check-input" id="provide_notice_yes" name="provide_notice" value="1" ng-model="vm.currentEmpDisc.provideNotice" ng-click="vm.createEmpDisc()" required>
+                                    <input type="radio" class="form-check-input" id="provide_notice_yes" name="provide_notice" value="1" ng-model="vm.currentEmpDisc.provide_notice" required>
                                     <label class="form-check-label mr-2" for="provide_notice_yes">Yes</label>
 
-                                    <input type="radio" class="form-check-input" id="provide_notice_no" name="provide_notice" value="0" ng-model="vm.currentEmpDisc.provideNotice" ng-click="vm.createEmpDisc()">
+                                    <input type="radio" class="form-check-input" id="provide_notice_no" name="provide_notice" value="0" ng-model="vm.currentEmpDisc.provide_notice" >
                                     <label class="form-check-label mr-2" for="provide_notice_no">No</label>
                                 </div>
                             </div>
@@ -78,11 +78,11 @@
 
                         <div class="col-5">
                             <div class="form-check d-flex align-self-left">
-                                <input type="checkbox" class="form-check-input" id="pay_mining_bonus" name="pay_mining_bonus">
+                                <input type="checkbox" class="form-check-input" id="pay_mining_bonus" name="pay_mining_bonus" value="1" ng-model="vm.currentEmpDisc.pay_mining_bonus" required>
                                 <label class="form-check-label" for="pay_mining_bonus">Do not pay mining bonus?</label>
                             </div>
                             <div class="form-check d-flex align-self-left">
-                                <input type="checkbox" class="form-check-input" id="pay_zero_harm" name="pay_zero_harm">
+                                <input type="checkbox" class="form-check-input" id="pay_zero_harm" name="pay_zero_harm" value="1" ng-model="vm.currentEmpDisc.pay_zero_harm" required>
                                 <label class="form-check-label" for="pay_zero_harm">Do not pay zero harm?</label>
                             </div>
                         </div>
@@ -90,54 +90,45 @@
                         <h4 class="section-title col-12 mt-4">Employee Performance</h4>
                         <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class="select-single" name="employee_performance" id="employee_performance" ng-options="performance.rld_name as performance.rld_name for performance in vm.employeePerformanceList" ng-model="vm.currentEmpDisc.employeePerformance"  ng-required="true">
+                                <select class="select-single" name="employee_performance_safety" id="employee_performance_safety" ng-options="safety.rld_name as safety.rld_name for safety in vm.employeePerformanceSafetyList" ng-model="vm.currentEmpDisc.performance_safety"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="employee_performance" ng-class="{filled:vm.currentEmpDisc.employeePerformance,active:vm.currentEmpDisc.employeePerformance}">Safety</label>
+                                <label for="employee_performance_safety" ng-class="{filled:vm.currentEmpDisc.performance_safety,active:vm.currentEmpDisc.performance_safety}">Safety</label>
                             </div>
                         </div> 
-
-<!--                         <div class="col-4">
+                        <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class="select-single" name="employee_performance_safety" id="employee_performance_safety" ng-options="safety.rld_name as safety.rld_name for safety in vm.employeePerformanceSafetyList" ng-model="vm.currentEmpDisc.employeePerformanceSafety"  ng-required="true">
+                                <select class="select-single" name="employee_performance_attendance" id="employee_performance_attendance" ng-options="attendance.rld_name as attendance.rld_name for attendance in vm.employeePerformanceAttendanceList" ng-model="vm.currentEmpDisc.performance_attendance"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="employee_performance_safety" ng-class="{filled:vm.currentEmpDisc.employeePerformanceSafety,active:vm.currentEmpDisc.employeePerformanceSafety}">Safety</label>
-                            </div>
-                        </div> -->
-<!--                         <div class="col-4">
-                            <div class="md-form mb-0">
-                                <select class="select-single" name="employee_performance_attendance" id="employee_performance_attendance" ng-options="attendance.rld_name as attendance.rld_name for attendance in vm.employeePerformanceAttendanceList" ng-model="vm.currentEmpDisc.employeePerformanceAttendance"  ng-required="true">
-                                    <option value=""></option>
-                                </select>
-                                <label for="employee_performance_attendance" ng-class="{filled:vm.currentEmpDisc.employeePerformanceAttendance,active:vm.currentEmpDisc.employeePerformanceAttendance}">Atendance</label>
+                                <label for="employee_performance_attendance" ng-class="{filled:vm.currentEmpDisc.performance_attendance,active:vm.currentEmpDisc.performance_attendance}">Attendance</label>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class="select-single" name="employee_performance_attitude" id="employee_performance_attitude" ng-options="attitude.rld_name as attitude.rld_name for attitude in vm.employeePerformanceAttitudeList" ng-model="vm.currentEmpDisc.employeePerformanceAttitude"  ng-required="true">
+                                <select class="select-single" name="employee_performance_attitude" id="employee_performance_attitude" ng-options="attitude.rld_name as attitude.rld_name for attitude in vm.employeePerformanceAttitudeList" ng-model="vm.currentEmpDisc.performance_attitude"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="employee_performance_attitude" ng-class="{filled:vm.currentEmpDisc.employeePerformanceAttitude,active:vm.currentEmpDisc.employeePerformanceAttitude}">Attitude</label>
+                                <label for="employee_performance_attitude" ng-class="{filled:vm.currentEmpDisc.performance_attitude,active:vm.currentEmpDisc.performance_attitude}">Attitude</label>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="md-form mb-0">
-                                <select class="select-single" name="employee_performance_care" id="employee_performance_care" ng-options="care.rld_name as care.rld_name for care in vm.employeePerformanceCareList" ng-model="vm.currentEmpDisc.employeePerformanceCare"  ng-required="true">
+                                <select class="select-single" name="employee_performance_care" id="employee_performance_care" ng-options="care.rld_name as care.rld_name for care in vm.employeePerformanceCareList" ng-model="vm.currentEmpDisc.performance_care"  ng-required="true">
                                     <option value=""></option>
                                 </select>
-                                <label for="employee_performance_care" ng-class="{filled:vm.currentEmpDisc.employeePerformanceCare,active:vm.currentEmpDisc.employeePerformanceCare}">Care</label>
+                                <label for="employee_performance_care" ng-class="{filled:vm.currentEmpDisc.performance_care,active:vm.currentEmpDisc.performance_care}">Care</label>
                             </div>
                         </div>
- -->
+ 
                         <div class="col-12">
                             <div class="form-group mb-4 mt-4">
                                 <label class="d-block">Is this person recommended for rehire?</label>
                                 <div class="form-check custom-radio pl-0">
-                                    <input type="radio" class="form-check-input" id="recommended_for_rehire_yes" name="recommended_for_rehire" value="1" ng-model="vm.currentEmpDisc.recommendRehire" ng-click="vm.createEmpDisc()" required>
+                                    <input type="radio" class="form-check-input" id="recommended_for_rehire_yes" name="recommended_rehire" value="1" ng-model="vm.currentEmpDisc.recommended_rehire" required>
                                     <label class="form-check-label mr-2" for="recommended_for_rehire_yes">Yes</label>
 
-                                    <input type="radio" class="form-check-input" id="recommended_for_rehire_no" name="recommended_for_rehire" value="0" ng-model="vm.currentEmpDisc.recommendRehire" ng-click="vm.createEmpDisc()">
+                                    <input type="radio" class="form-check-input" id="recommended_for_rehire_no" name="recommended_rehire" value="0" ng-model="vm.currentEmpDisc.recommended_rehire">
                                     <label class="form-check-label mr-2" for="recommended_for_rehire_no">No</label>
                                 </div>
                             </div>
@@ -145,22 +136,21 @@
                         <div class="col-12">
                             <h4 class="section-title col-12 mt-4">Employee Assets collected for return (check with IT for updated assigned assets)</h4>
                             <label class="col-12 mt-4">Assets Collected</label>
-                            <select multiple class="select-multiple" name="assets_collected" ng-model="vm.currentEmpDisc.assetsCollected" ng-required="true">
+                            <select multiple class="select-multiple" name="assets_collected" ng-model="vm.currentEmpDisc.assets_collected" ng-required="true">
                             <option value="{{asset.rld_name}}" ng-repeat="asset in vm.assetsCollectedList">{{asset.rld_name}}</option>
                             </select>
                         </div>
-                     <!--   <br /> <br /> <br />  <br />  -->
                         <div class="col-12">
                             <div class="form-check d-flex align-self-center">
-                                <input type="checkbox" class="form-check-input" id="arrangement_assets" name="arrangement_assets">
+                                <input type="checkbox" class="form-check-input" id="arrangement_assets" name="arrangement_assets" value="1" ng-model="vm.currentEmpDisc.arrangement_assets" required>
                                 <label class="form-check-label" for="arrangement_assets">Arrangements made for mobile assets</label>
                             </div>
                         </div>
                        
                         <div class="col-12">
                             <div class="md-form mb-0">
-                                <textarea class="form-control md-textarea" name="additional_information" id="additional_information" ng-model="vm.currentEmpDisc.event" ng-required="true"></textarea>
-                                <label for="additional_information" ng-class="{filled:vm.currentEmpDisc.event,active:vm.currentEmpDisc.event}">Additional Information</label>
+                                <textarea class="form-control md-textarea" name="additional_information" id="additional_information" ng-model="vm.currentEmpDisc.additional_information" ng-required="true"></textarea>
+                                <label for="additional_information" ng-class="{filled:vm.currentEmpDisc.additional_information,active:vm.currentEmpDisc.additional_information}">Additional Information</label>
                             </div>
                         </div>
                         <div class="col-12">
@@ -172,7 +162,7 @@
                     </div>
                     <div name="control-section" class="control-section mt-4">
                         <button ng-disabled="vm.submitted" type="button" class="btn btn-primary btn-rounded m-0" ng-click="vm.createEmpDisc()">Submit</button>
-                        <button type="button" class="btn btn-outline-primary btn-rounded m-0 mr-3" ng-click="vm.closeModal('employeeDepartureModal)">Cancel</button>
+                        <button type="button" class="btn btn-outline-primary btn-rounded m-0 mr-3" ng-click="vm.closeModal('employeeDepartureModal')">Cancel</button>
                     </div>
                 </div>
             </form>
