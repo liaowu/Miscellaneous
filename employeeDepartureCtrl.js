@@ -15,10 +15,11 @@ safeToDo.component("employeeDepartureForm", {
         let dateToday = moment(new Date(), 'YYYY-MM-DD')
         vm.siteList = []
         vm.reasonDepartureList = []
-        vm.employeePerformanceSafetyList = []
+        vm.employeePerformanceList = []
+ /*        vm.employeePerformanceSafetyList = []
         vm.employeePerformanceAttendanceList = []
         vm.employeePerformanceAttitudeList = []
-        vm.employeePerformanceCareList = []
+        vm.employeePerformanceCareList = [] */
         vm.assetsCollectedList = []
         vm.jobList = []
         vm.jobListSelect = []
@@ -37,153 +38,27 @@ safeToDo.component("employeeDepartureForm", {
 
             vm.currentEmpDisc = {
                 form_name: 'EMPLOYEE DEPARTURE',
-                headerdate: dateToday.format("YYYY-MM-DD"),
+                employee_name: null,
                 site: '',
+                job_number: '',
+                supervisor: '',               
+                headerdate: dateToday.format("YYYY-MM-DD"),
+                position: '',
                 reasonDeparture: '', 
-                employeePerformanceSafety: '',
+                provideNotice: '',
+                payMiningBonus: '',
+                payZeroHarm: '',
+                employeePerformance: '',
+  /*               employeePerformanceSafety: '',
                 employeePerformanceAttendance: '',
                 employeePerformanceAttitude: '',
-                employeePerformanceCare: '',
+                employeePerformanceCare: '', */
+                recommendRehire: '',
                 assetsCollected: '',
-                job_number: '',
-                level: '',
-                position: '',
-                supervisor: '',
-                employee_name: null,
-                Departure_violation: '',
-                event_type: '',
-                counselled: '',
-                event: '',
-                signature_employee: '',
-                signature_superintendent: '',
-                signature_manager: '',
+                arrangeMobile: '',
+                additionalInfo: '',
                 Report_Distribution1: []
             }
-        }
-
-        //Function to get jobs & levels at a site
-        vm.getJobsLevels = () => {
-            let mainSite = ''
-            vm.currentEmpDisc.job_number = ''
-            vm.currentEmpDisc.level = ''
-            vm.jobListSelect = []
-            vm.levelListSelect = []
-            vm.siteList.forEach((rec) => {
-                if(rec.rld_name == vm.currentEmpDisc.site)
-                {
-                    mainSite = rec.rld_id
-                }
-            })
-            vm.jobList.forEach((rec) => {
-                if(rec.rld_parent_detail_rld_id == mainSite)
-                    vm.jobListSelect.push(rec)
-            })
-            vm.levelList.forEach((rec) => {
-                if(rec.rld_parent_detail_rld_id == mainSite)
-                    vm.levelListSelect.push(rec)
-            })
-            
-        }
-
-        vm.openSignModal = (e) => {
-            document.getElementById(`sigModalOK`).removeEventListener('click', signFunction)
-            vm.mainButton = e.target
-            vm.target =  e.target.getAttribute('signaturename')
-            $(`#${vm.target}`).val('')
-            $(`#${vm.target}_img`).val('')
-            $('#output').val('')
-            modalService.Open('signatureModal')
-            activateSignature()
-        }
-
-        function signFunction(e){ 
-            e.stopPropagation()
-            let vecValue = document.querySelector('#output').value
-        
-            if(vecValue){
-                vm.currentEmpDisc[vm.target] = $(`.sigPadModal .pad2`)[0].toDataURL('image/jpeg')
-                $(`#${vm.target}`).next().val(vecValue)
-                $(`#${vm.target}_img`).attr('src',$(`.sigPadModal .pad2`)[0].toDataURL('image/jpeg'))
-            } else {
-                $(`#${vm.target}`).val('')
-                $(`#${vm.target}`).next().val('')
-                $(`#${vm.target}_img`).attr('src','')
-            }
-
-            $(`#sigModal .output`).val('')
-
-            if(vecValue) {
-                vm.mainButton.innerHTML = `<i class="fa fa-pen"></i> Re-sign`
-                $(`#${vm.target}`).prev().prev().children()[1].classList.remove('d-none')
-                $(`#${vm.target}`).prev().prev().children()[0].classList.remove('invalid')
-            } 
-            else {
-                vm.mainButton.innerHTML = `<i class="fa fa-pen"></i> Sign`
-                $(`#${vm.target}_img`).attr('src','')
-                $(`#${vm.target}`).prev().prev().children()[1].classList.add('d-none')
-            }
-            
-            let sig = $('.sigPadModal').signaturePad({})
-            sig.clearCanvas()
-
-            modalService.Close('signatureModal')
-        }
-
-        function activateSignature(){
-            setTimeout(()=>{
-                $('canvas.pad2').attr({"width": $('.pad2').parent().width(),"height":$('.pad2').parent().width()/3})
-                    let sig = $('.sigPadModal').signaturePad({
-                    lineColour: "#ced4da",
-                    drawOnly: true,
-                    lineWidth: 0,
-                    lineBottom: 10,
-                    bgColour: 'rgb(255,255,255)'
-                })
-                sig.clearCanvas()
-
-                document.getElementById(`sigModalOK`).addEventListener('click',signFunction)
-                document.getElementById(`reSignButton`).addEventListener('click',(e) =>{  
-                canvas = e.target.parentNode.previousSibling.previousElementSibling.previousElementSibling
-                let sig = $('.sigPadModal').signaturePad(	{
-                    lineColour: "#ced4da",
-                    drawOnly: true,
-                    lineWidth: 0,
-                    lineBottom: 10,
-                    bgColour: 'rgb(255,255,255)'
-                    });
-                    sig.clearCanvas()
-                })
-            },300)
-              
-        }
-
-        $(`.clear_sign`).click((e) => {
-            e.target.previousElementSibling.innerHTML = '<i class="fa fa-pen"></i> Sign'
-            e.target.parentNode.nextElementSibling.setAttribute('src','')
-
-            vm.currentEmpDisc[e.target.previousElementSibling.getAttribute('signaturename')] = ''
-            e.target.parentNode.nextElementSibling.nextElementSibling.value = ''
-            e.target.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.value = ''
-            e.target.classList.add('d-none')
-            if(e.target.parentNode.nextElementSibling.nextElementSibling.hasAttribute('required')){
-                e.target.previousElementSibling.classList.add('invalid')
-            }
-        })    
-        
-        function clearAllSign () {
-            let signImgs = Array.from(document.getElementsByClassName("clear_sign"))
-
-            signImgs.forEach ((img) => {
-                img.previousElementSibling.innerHTML = '<i class="fa fa-pen"></i> Sign'
-                img.parentNode.nextElementSibling.setAttribute('src','')
-
-                img.parentNode.nextElementSibling.nextElementSibling.value = ''
-                img.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.value = ''
-                img.classList.add('d-none')
-                if(img.parentNode.nextElementSibling.nextElementSibling.hasAttribute('required')){
-                    img.previousElementSibling.classList.add('invalid')
-                }               
-            })
         }
 
         //Function to create the employee Departure
@@ -197,6 +72,22 @@ safeToDo.component("employeeDepartureForm", {
                 })
             }
         }
+        //Function to get jobs at a site
+        vm.getJobList = () => {
+            let mainSite = ''
+            vm.currentEmpDisc.job_number = ''
+            vm.jobListSelect = []
+            vm.siteList.forEach((rec) => {
+                if(rec.rld_name == vm.currentEmpDisc.site)
+                {
+                    mainSite = rec.rld_id
+                }
+            })
+            vm.jobList.forEach((rec) => {
+                if(rec.rld_parent_detail_rld_id == mainSite)
+                    vm.jobListSelect.push(rec)
+            })
+        }
 
         //Function to prepare payload data
         function preparePayload(payload) {
@@ -209,7 +100,6 @@ safeToDo.component("employeeDepartureForm", {
 
         //Function to close the modal
         vm.closeModal = (modalId) => {    
-            clearAllSign()        
             modalService.Close(modalId)
             resetForm()            
         }
@@ -246,10 +136,11 @@ safeToDo.component("employeeDepartureForm", {
                 vm.jobList = data[1]
                 vm.levelList = data[2]
                 vm.reasonDepartureList = data[3]
-                vm.employeePerformanceSafetyList = data[4]
+                vm.employeePerformance= data[4]
+/*                 vm.employeePerformanceSafetyList = data[4]
                 vm.employeePerformanceAttendanceList = data[4]
                 vm.employeePerformanceAttitudeList = data[4]
-                vm.employeePerformanceCareList = data[4]
+                vm.employeePerformanceCareList = data[4] */
                 vm.assetsCollectedList = data[5]
                 vm.employeeList = profileService.readAllEmployeeProfile()
                 vm.supervisorList = profileService.readAllSupervisorProfile()  
