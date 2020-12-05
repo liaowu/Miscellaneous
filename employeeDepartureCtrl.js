@@ -49,6 +49,7 @@ safeToDo.component("employeeDepartureForm", {
                 provide_notice: '',
                 pay_mining_bonus: '',
                 pay_zero_harm: '',
+                other_reasons: '',
                 departure_code: '',
                 performance_safety: '',
                 performance_attendance: '',
