@@ -78,11 +78,11 @@
 
                         <div class="col-5" ng-show="vm.currentEmpDisc.reason_departure == 'Quit [E00]' || vm.currentEmpDisc.reason_departure == 'Dismissal [M00]'">
                             <div class="form-check d-flex align-self-left">
-                                <input type="checkbox" class="form-check-input" id="pay_mining_bonus" name="pay_mining_bonus" value="1" ng-model="vm.currentEmpDisc.pay_mining_bonus"  ng-required="vm.currentEmpDisc.reason_departure == 'Quit [E00]' || vm.currentEmpDisc.reason_departure == 'Dismissal [M00]'">
+                                <input type="checkbox" class="form-check-input" id="pay_mining_bonus" name="pay_mining_bonus" value="1" ng-model="vm.currentEmpDisc.pay_mining_bonus">
                                 <label class="form-check-label" for="pay_mining_bonus">Do not pay mining bonus?</label>
                             </div>
                             <div class="form-check d-flex align-self-left">
-                                <input type="checkbox" class="form-check-input" id="pay_zero_harm" name="pay_zero_harm" value="1" ng-model="vm.currentEmpDisc.pay_zero_harm" ng-required="vm.currentEmpDisc.reason_departure == 'Quit [E00]' || vm.currentEmpDisc.reason_departure == 'Dismissal [M00]'">>
+                                <input type="checkbox" class="form-check-input" id="pay_zero_harm" name="pay_zero_harm" value="1" ng-model="vm.currentEmpDisc.pay_zero_harm" >
                                 <label class="form-check-label" for="pay_zero_harm">Do not pay zero harm?</label>
                             </div>
                         </div>
