@@ -1,5 +1,4 @@
 import os, sys, subprocess, shutil
-# subprocess.check_output(['sudo','mv', 'johnny'])
 
 upath = '/home/liaowu/'
 rpath = '/var/www/'
@@ -12,13 +11,16 @@ else:
     sys.exit()
 
 def copy(before, destination, tof):
+    q = input('copying {0} to {1}, do you want to continue[y,n]: '.format(before, destination))
+    if q == 'n':
+        return()
     try: 
         if tof == "folder":
             shutil.copytree(before, destination)
         else:
             shutil.copy(before, destination)
-        # if name:
-            # move(destination, "".join(destination.split("/")[:-2]) + name)
+        print('Copy {0} into {1} finished \n'.format(destination.split('/')[-1],destination.split('/')[-2]))
+
     except Exception as e:
         if 'File exists' in str(e):
             print('File/Folder {0} already exists under {1}'.format(destination.split('/')[-1],destination.split('/')[-2]))
@@ -35,25 +37,8 @@ def copy(before, destination, tof):
         else:
             print(str(e))
 
-# def move(source, destination):
-    # try: 
-        # shutil.move(source, destination)
-    # except Exception as e:
-        # if 'File exists' in str(e):
-            # print('File/Folder {0} already exists under {1}'.format(destination.split('/')[-1],destination.split('/')[-2]))
-            # r = input('Do you want to replace it[y, n]: ')
-            # if r == 'y':
-                # shutil.rmtree(destination)
-                # print("trying again...")
-                # move(source, destination)
-            # else:
-                # return
-
-# def replace(source, destination):
-        # shutil.rmtree(destination)
-        # copy(source, destination)
-
 print("WARNING! The virtual environment will not be automatically made")
+print('\n CHANGING FRONTEND')
 copy(upath + 'gitignorefiles/front/env/', upath + 'q/APP/env', 'folder')
 copy(upath + 'gitignorefiles/front/dev.env', upath + 'q/APP/dev.env', 'file')
 copy(upath + 'gitignorefiles/front/app.routes.js', upath + 'q/APP/app/app.routes.js', 'file')
@@ -61,6 +46,8 @@ copy(upath + 'gitignorefiles/front/resource', upath + 'q/APP/resource', 'folder'
 print('\n if you have already swiched html to htmlback then enter no')
 copy(rpath + 'html', rpath + 'htmlback', 'folder')
 copy(upath + 'q/APP', rpath + 'html', 'folder')
+os.system('restorecon -r /var/www/html')
+os.system('chmod 755 -R /var/www/html')
 
 print('\n CHANGING BACKEND \n')
 copy(upath + 'gitignorefiles/back/local.py', upath + 'back/sofvie_api/config/local.py', 'file')
