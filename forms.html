@@ -1,0 +1,163 @@
+﻿<div class="forms row" ng-controller="FormsCtrl as forms">
+
+  <div class="col-12">
+    <div class=" d-flex flex-wrap justify-content-between my-2">
+      <h4 class="align-self-center m-0">
+        <strong>Form Submissions</strong>
+      </h4>
+      <div class="dropdown ">
+        <div class="position-relative d-inline-block">
+          <std-date-filter page="'30'"></std-date-filter>
+        </div>
+        <user-menu></user-menu>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="header-bar header-shadow">
+      <input class="top-search col-12 pl-5 pr-2 " type="text" placeholder="Search" ng-model="forms.topSearch" ng-model-options="{debounce: 500}" ng-change="forms.topSearchChanged()" />
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="mt-3 card">
+      <div class="card-body">
+        <div id="gridHeader">
+          <h5 class="card-title"><strong>{{forms.activeFormName | titlecase}}</strong></h5>
+          <div>
+            <button class="btn btn-primary btn-rounded py-2 px-3" ng-show="forms.appAvailable" type="button" ng-click="forms.openModal()">Create</button>
+            <!-- <button class="btn btn-primary btn-rounded py-2 px-3" ng-show="forms.activeFormName == 'PRELIMINARY INCIDENT'" type="button" ng-click="forms.openModal('preliminaryIncidentModal')">Create</button>
+            <button class="btn btn-primary btn-rounded py-2 px-3" ng-show="forms.activeFormName == 'VFL Audit'" type="button" ng-click="forms.openModal('VFLAuditModal')">Create</button>
+            <button class="btn btn-primary btn-rounded py-2 px-3" ng-show="forms.activeFormName == 'EMPLOYEE DISCIPLINE'" type="button" ng-click="forms.openModal('employeeDisciplineModal')">Create</button>
+            <button class="btn btn-primary btn-rounded py-2 px-3" ng-show="forms.activeFormName == 'EMPLOYEE REVIEW 60 DAY'" type="button" ng-click="forms.openModal('employeeReview60DayModal')">Create</button>
+            <button class="btn btn-primary btn-rounded py-2 px-3" ng-show="forms.activeFormName == 'EMPLOYEE REVIEW ANNUAL'" type="button" ng-click="forms.openModal('employeeReviewAnnualModal')">Create</button>
+            <button class="btn btn-primary btn-rounded py-2 px-3" ng-show="forms.activeFormName == 'GENERAL REPORT '" type="button" ng-click="forms.openModal('generalActionModal')">Create</button>
+            <button class="btn btn-primary btn-rounded py-2 px-3" ng-show="forms.activeFormName == 'HAZARD REPORT'" type="button" ng-click="forms.openModal('hazardActionModal')">Create</button>
+            <button class="btn btn-primary btn-rounded py-2 px-3" ng-show="forms.activeFormName == 'Positive Recognition Report'" type="button" ng-click="forms.openModal('positiveRecognitionModal')">Create</button> -->
+            <div class="dropdown">
+              <button class="btn btn-primary btn-rounded py-2 px-3 dropdown-toggle" data-toggle="dropdown" ng-disabled="forms.exportDisabled" ng-click="forms.exportPressed(); $event.stopPropagation();">Actions </button>
+              <div id="myDropdown" class="dropdown-menu dropdown-menu-right dropdown-primary">
+                <a class="dropdown-item" ng-if="forms.canExportCSV" ng-click="forms.exportCSV();"><i class="fa fa-file-csv fa-lg"></i> Export CSV</a>
+                <a class="dropdown-item archive" ng-if="forms.canArchiveSubmissions" ng-click="forms.archiveSubmissions();"><i class="fa fa-archive fa-lg"></i> Archive</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="myGrid" class="ag-material data-grid data-form " ag-grid="forms.options"></div>
+      </div>
+    </div>
+  </div>
+  <modal id="formModal">
+    <div class="modal-m">
+      <div class="modal-body">
+        <div class="modal-header">
+          <div class="d-flex align-items-end">
+          <h5><strong>Attachments ({{forms.attachmentModalFiles.length}})</strong></h5>
+          <a class="download-all btn btn-rounded btn-primary btn-sm" ng-show="forms.attachmentModalFiles.length > 1" href="/api/submissions/{{forms.selectedSubId}}/zip/{{forms.selectedFieldId}}" target="files"><i class="fas fa-download fa-lg"></i></a>
+          </div>
+          <img class="close-modal mt-0" src="images/icon-small-close-x.svg" ng-click="forms.closeModal('formModal')" />
+        </div>
+        <div class="file-list">
+          <ul>
+            <li ng-repeat="att in forms.attachmentModalFiles">
+              <a href="/f/{{att.AttachmentFileName}}" target="_blank"><span class="file-image">JPG</span><span ng-class="{italic: !att.AttachmentComment}">{{ !!att.AttachmentComment ? att.AttachmentComment : 'No Comment' }}</span></a>
+              <div ng-class="{separator: !$last}"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="modal-background"></div>
+  </modal>
+  <modal id="sigModal">
+    <div class="modal-m">
+      <div class="modal-body">
+        <div class="modal-header">
+          <h5><strong>Signature</strong></h5>
+          <img class="close-modal" src="images/icon-small-close-x.svg" ng-click="forms.closeModal('sigModal')" />
+        </div>
+        <div class="file-list">
+          <ul>
+            <li ng-repeat="att in forms.attachmentModalFiles">
+              <img ng-src="/f/{{att.AttachmentFileName}}" />
+              <div ng-class="{separator: !$last}"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="modal-background"></div>
+  </modal>
+  <modal id="submissionArchiveModal">
+    <div class="modal-m">
+      <div class="modal-body">
+        <ng-form name="target">
+          <div class="modal-header">
+            <h5><strong>Archive Submissions?</strong></h5>
+            <img class="close-modal" src="images/icon-small-close-x.svg" ng-click="forms.closeModal('submissionArchiveModal')" />
+          </div>
+          <div class="input-section">
+            <div>
+              <p>You are about to archive {{forms.subArchiveCount}} submissions. These submissions may have associated actions and positive recognition entries. Undoing this will require IT support. Are you sure?</p>
+            </div>
+          </div>
+          <div class="control-section">
+            <button class="btn btn-primary btn-rounded m-0" ng-click="forms.confirmArchiveSubmissions()">Archive Submissions</button>
+          </div>
+        </ng-form>
+      </div>
+    </div>
+    <div class="modal-background"></div>
+  </modal>
+  <modal id="signoffHistoryModal">
+    <div class="modal-m">
+      <div class="modal-body">
+        <div class="modal-header">
+          <h5><strong>Submission Reviews</strong></h5>
+          <img class="close-modal" src="images/icon-small-close-x.svg" ng-click="forms.closeModal('signoffHistoryModal')" />
+        </div>
+        <div class="signoff-history-list scroll">
+          <ul>
+            <li ng-repeat="signoff in forms.currentSignoffHistory">
+              <span class="signoff-history-name">{{signoff.SigningName}}</span><span class="signoff-history-date">{{signoff.SigningTimestamp | date : "MM/dd/yyyy"}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="modal-background"></div>
+  </modal>
+
+  <modal id="signoffConfirmationModal">
+    <div class="modal-m">
+      <div class="modal-body">
+        <div class="modal-header">
+          <h5><strong>Submission Review?</strong></h5>
+          <img class="close-modal" src="images/icon-small-close-x.svg" ng-click="forms.closeModal('signoffConfirmationModal')" />
+        </div>
+        <div class="input-section">
+          <div>
+            <p>You are now confirming that you have reviewed this submission. This action cannot be undone. Continue?</p>
+          </div>
+        </div>
+        <div class="control-section">
+          <button class="btn btn-primary btn-rounded m-0" ng-click="forms.confirmSignoff(forms.headerDataContext);">OK</button>
+          <button class="btn btn-outline-primary btn-rounded m-0 mr-3" ng-click="forms.closeModal('signoffConfirmationModal')">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-background"></div>
+  </modal>
+          
+  <div id="form-placeholder"></div>
+   <!-- <preliminary-incident-form></preliminary-incident-form>
+  <vfl-audit-form></vfl-audit-form>
+  <employee-discipline-form ng-if="forms.activeFormName == 'EMPLOYEE DISCIPLINE'"></employee-discipline-form>
+  <employee-review-60-day-form ng-if="forms.activeFormName == 'EMPLOYEE REVIEW 60 DAY'"></employee-review-60-day-form>
+  <employee-review-annual-form ng-if="forms.activeFormName == 'EMPLOYEE REVIEW ANNUAL'"></employee-review-annual-form>
+  <general-action-form ng-if="forms.activeFormName == 'GENERAL REPORT '"></general-action-form>
+  <hazard-action-form ng-if="forms.activeFormName == 'HAZARD REPORT'"></hazard-action-form>
+  <positive-recognition-form ng-if="forms.activeFormName == 'Positive Recognition Report'" ></positive-recognition-form> -->
+  
+
+</div>
+
